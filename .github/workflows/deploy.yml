@@ -39,8 +39,8 @@ jobs:
         run: yarn
       - name: Build
         run: |
-        yarn run build
-        touch build/.nojekyll
+          npm run build
+          touch build/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
