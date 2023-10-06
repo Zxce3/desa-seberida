@@ -9,14 +9,34 @@
     >
   </p>
   <p>or visit us</p>
-  <iframe
-    title="maps-seberida"
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.507570962715!2d102.50738091003568!3d-0.7151036992749193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e290d23a913b8fd%3A0x32716bddf6e74693!2sKantor%20Desa%20Seberida!5e0!3m2!1sid!2ssg!4v1696593800995!5m2!1sid!2ssg"
-    width="600"
-    height="450"
-    style="border:0;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade"
-  />
+  <div class="maps-container">
+    <div class="container">
+      <iframe
+        title="Maps-Seberida"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        height="350"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.507570962715!2d102.50738091003568!3d-0.7151036992749193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e290d23a913b8fd%3A0x32716bddf6e74693!2sKantor%20Desa%20Seberida!5e0!3m2!1sid!2ssg!4v1696593800995!5m2!1sid!2ssg"
+      />
+    </div>
+  </div>
 </section>
+
+<style>
+  iframe {
+    width: 100%;
+    /* height: 150px; */
+  }
+
+  .maps-container {
+    width: 100%;
+    /* height: auto; */
+  }
+  /* @media (max-width: 768px) {
+    iframe {
+      width: 50%;
+    }
+  } */
+</style>
