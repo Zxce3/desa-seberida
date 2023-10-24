@@ -1,11 +1,12 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
+import { sveltekit } from "@sveltejs/kit/vite";
 
-export default defineConfig({
-	base: '/',
-	server:{
-			host: true,
-			port: 6969,
-},
-	plugins: [sveltekit()]
-});
+/** @type {import('vite').UserConfig} */
+const config = {
+	server: {
+		host: true,
+		port: 6969,
+  },
+  	plugins: [sveltekit()],
+};
+
+export default config;

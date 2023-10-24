@@ -27,16 +27,10 @@
 <style>
   iframe {
     width: 100%;
-    /* height: 150px; */
   }
 
   .maps-container {
     width: 100%;
-    /* height: auto; */
   }
-  /* @media (max-width: 768px) {
-    iframe {
-      width: 50%;
-    }
-  } */
+  
 </style>

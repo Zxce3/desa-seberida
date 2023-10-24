@@ -40,7 +40,7 @@
     </p>
   </div>
 
-  <div class=" countdown py-4 px-6">
+  <div class="countdown py-4 px-6">
     <div class="flex flex-wrap gap-4 justify-center items-center">
       <div class="border rounded-lg px-4 py-2">
         <div id="days" class="font-bold font-mono text-2xl text-gray-800">
