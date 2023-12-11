@@ -30,7 +30,7 @@
 </script>
 
 <svelte:head>
-  <title>Home</title>
+  <title>Desa Seberida</title>
 </svelte:head>
 <div class="max-w-lg mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
   <div class="py-4 px-6">
