@@ -17,5 +17,6 @@
     <a href="{base}/" class="text-gray-700 hover:underline">Home</a>
     <a href="{base}/about" class="text-gray-700 hover:underline">About</a>
     <a href="{base}/contact" class="text-gray-700 hover:underline">Contact</a>
+    <a href="{base}/history" class="text-gray-700 hover:underline">History</a>
   </nav>
 </header>
