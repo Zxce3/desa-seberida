@@ -1,4 +1,4 @@
-name: Deploy static content to Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -6,17 +6,12 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+  contents: write
 
 jobs:
-  build_site:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,49 +30,41 @@ jobs:
           yarn run build
           touch build/.nojekyll
 
-      # Add a step to clean up any potential symlinks
+      # Clean up any symlinks in build output
       - name: Clean up symlinks
         run: |
-          echo "Removing any symlinks from build directory..."
-          find build/ -type l -delete
-          echo "Converting any remaining symlinks to copies..."
+          echo "Converting any symlinks to regular files..."
           find build/ -type l -exec bash -c 'cp --remove-destination "$(readlink -f "$0")" "$0"' {} \;
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        id: upload
-        uses: actions/upload-artifact@v4
-        with:
-          name: github-pages
-          path: build/
-          retention-days: 1
-          if-no-files-found: error
-
-  deploy:
-    needs: build_site
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: .
-
-      - name: Verify downloaded content
-        run: |
-          echo "Checking for any remaining symlinks..."
-          find . -type l
-          echo "Listing directory contents..."
-          ls -la
-
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        with:
-          artifact_name: github-pages
+        run: |
+          # Configure git
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          
+          # Get the commit message from the last commit
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          
+          # Create a new branch for deployment (temporary)
+          git checkout --orphan gh-pages-temp
+          
+          # Clean the working directory
+          git rm -rf .
+          
+          # Copy build files
+          cp -r build/* .
+          cp build/.nojekyll . 2>/dev/null || :
+          
+          # Stage all files
+          git add -A
+          
+          # Create commit with timestamp
+          git commit -m "Deploy: $COMMIT_MESSAGE
+
+          Deployed by GitHub Actions at $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          Build from commit: ${{ github.sha }}"
+          
+          # Force push to gh-pages branch
+          git push origin gh-pages-temp:gh-pages --force
+          
+          echo "🚀 Deployed successfully to gh-pages branch"
