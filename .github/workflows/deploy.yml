@@ -44,10 +44,17 @@ jobs:
 
       - name: Upload artifact
         id: upload
-        uses: actions/upload-pages-artifact@v3  
+        uses: actions/upload-artifact@v4
         with:
-          path: 'build/'
-
+          name: github-pages
+          path: build/
+          retention-days: 1
+          if-no-files-found: error
+          compression-level: 6
+          overwrite: false
+          include-hidden-files: false
+        env:
+          GITHUB_PAGES: true
 
   deploy:
     needs: build_site
@@ -66,8 +73,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: github-pages
-          path: ${{ runner.temp }}
+          path: ${{ runner.temp }}/github-pages
 
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v2
+        with:
+          path: ${{ runner.temp }}/github-pages
