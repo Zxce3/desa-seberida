@@ -48,6 +48,7 @@ jobs:
         with:
           path: 'build/'
 
+
   deploy:
     needs: build_site
     runs-on: ubuntu-latest
@@ -61,6 +62,12 @@ jobs:
       url: ${{ steps.upload.outputs.page_url }}
     
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}
+
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v2
